@@ -1,20 +1,21 @@
-import ToucanLogo from '../toucanLogo.svg';
-import ToucanLogoWhite from '../toucanLogoWhite.svg';
-import { Box, Heading, Image, useColorMode, Button } from 'theme-ui';
+import { Box, Heading, useColorMode, Button, useThemeUI } from 'theme-ui';
+import ToucanIcon from './icon';
 
 function Header() {
-  const [colorMode, setColorMode] = useColorMode()
+  const [colorMode, setColorMode] = useColorMode();
+  const context = useThemeUI()
+  const { theme } = context;
 
   return (
     <Box p={4} sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-      
-      {
-        colorMode === 'default' ?
-          <Image src={ToucanLogo} color={'red'} sx={{ height: 36, width: 36 }} />
-        :
-          <Image src={ToucanLogoWhite} color={'red'} sx={{ height: 36, width: 36 }} />
-      }
-      <Heading as='h1'>Toucanban</Heading>
+      <Box sx={{display: 'flex', alignItems: 'center'}}>
+        <ToucanIcon
+          background={theme.colors?.muted}
+          stroke={colorMode === 'default' ? 'white' : 'black'}
+          fill={colorMode === 'default' ? 'black' : 'white'}
+        />
+        <Heading as='h1' pl={3}>Toucanban</Heading>
+      </Box>
       <Button
         onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}
         bg='muted'
