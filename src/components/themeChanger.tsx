@@ -1,20 +1,18 @@
 import { useColorMode, Button } from 'theme-ui';
 
-function ThemeChanger() {
+function Header() {
   const [colorMode, setColorMode] = useColorMode();
 
   return (
     <Button
       onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}
       bg='muted'
-      color='secondary'
-      sx={{
-        width: 5
-      }}
+      color='text'
+      sx={{width: 5}}
     >
       {colorMode === 'default' ? 'light' : 'dark'}
     </Button>
   );
 }
 
-export default ThemeChanger;
+export default Header;
