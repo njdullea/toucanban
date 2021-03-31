@@ -3,9 +3,10 @@ import { Box, Heading, useColorMode, Button, useThemeUI } from 'theme-ui';
 import ToucanIcon from './icon';
 import { Settings } from 'react-feather';
 import SettingsModal from './settingsModal';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 function Header() {
-  const [colorMode, setColorMode] = useColorMode();
+  const [colorMode] = useColorMode();
   const [displaySettingsModal, setDisplaySettingsModal] = useState(false);
   const context = useThemeUI();
   const { theme } = context;
@@ -27,22 +28,21 @@ function Header() {
         sx={{ display: 'flex', height: '48px', width: '48px', borderRadius: '8px', alignItems: 'center', justifyContent: 'center' }}
       >
         <Settings />
-        {displaySettingsModal && 
+        {displaySettingsModal &&
+          <OutsideClickHandler
+            onOutsideClick={() => {
+            setDisplaySettingsModal(false);
+            }}
+          >
           <Box
             sx={{position: 'absolute', top: 100, right: 30}}  
           >
+            
             <SettingsModal />
           </Box>
+          </OutsideClickHandler>
         }
       </Button>
-      {/* <Button
-        onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}
-        bg='muted'
-        color='text'
-        sx={{width: 5}}
-      >
-        {colorMode === 'default' ? 'light' : 'dark'}
-      </Button> */}
     </Box>
   );
 }
