@@ -76,7 +76,19 @@ export default {
         outline: 'none',
       },
     },
-    // secondary: {},
+    secondary: {
+      bg: 'muted',
+      color: 'text',
+      outline: 'none',
+      '&:hover': {
+        borderBottomWidth: 2,
+        borderBottomColor: 'text',
+        // textDecoration: 'underline',
+      },
+      '&:active': {
+        outline: 'none',
+      },
+    },
   },
   cards: {
     primary: {
