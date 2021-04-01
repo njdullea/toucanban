@@ -24,18 +24,18 @@ function SettingsModal() {
         onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
         bg={theme.colors?.muted as string}
         p={0}
-        sx={{ display: 'flex', height: '48px', width: '48px', borderRadius: '8px', alignItems: 'center', justifyContent: 'center' }}
+        sx={{ display: 'flex', height: '48px', width: '48px', borderRadius: '8px', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'}}
       >
         <Settings />
       </Button>
         <animated.div style={animateProps}>
           <Box sx={{position: 'absolute', top: 100, right: 30}}> 
-            
               <Card sx={{
                 width: 256,
                 padding: 2,
                 backgroundColor: 'muted',
-                color: 'black'
+                color: 'black',
+                boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'
               }}>
                 <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Profile</Text>

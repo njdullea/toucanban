@@ -50,23 +50,24 @@ export default {
   },
   colors: {
     text: "#000",
-    background: "#fff",
+    background: "#fafafa",
     primary: "#07c",
     secondary: "#30c",
-    muted: "#f6f6f6",
+    muted: "#c7c7c7",
     modes: {
       dark: {
         text: "#fff",
-        background: "#000",
+        background: "#212121",
         primary: "#07c",
         secondary: "#30c",
-        muted: "#424242",
+        muted: "#484848",
       }
     }
   },
   buttons: {
     primary: {
       bg: 'primary',
+      // boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)',
       color: 'text',
       outline: 'none',
       '&:hover': {

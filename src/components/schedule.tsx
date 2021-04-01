@@ -20,7 +20,7 @@ function Schedule() {
   const [selectedDates, setSelectedDates] = useState(getStartingDates());
 
   return (
-    <Box sx={{ margin: 4, backgroundColor: 'muted', p: 3, borderRadius: 4, flex: 1 }}>
+    <Box sx={{ margin: 4, backgroundColor: 'muted', p: 3, borderRadius: 4, flex: 1, boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'}}>
       <Heading as='h3'>Task Board</Heading>
       <Box sx={{ pt: 3, display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{display: 'flex'}}>

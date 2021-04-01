@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, PlusCircle }  from 'react-feather';
 
 function ProjectSettings() {
   return (
-    <Box sx={{ margin: 2, ml: 4, mr: 4, backgroundColor: 'muted', p: 3, borderRadius: 4}}>
+    <Box sx={{ margin: 2, ml: 4, mr: 4, backgroundColor: 'muted', p: 3, borderRadius: 4, boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'}}>
       <Heading pb={2} as='h3'>Project Settings</Heading>
       <Heading pb={1} as='h4'>Item Types</Heading>
       <div><Text>Task</Text></div>
