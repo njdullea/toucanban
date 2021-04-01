@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { format, subDays, addDays } from 'date-fns';
-import { Box, Text, Button } from 'theme-ui';
+import { Box, Text, Button, Heading } from 'theme-ui';
 import { ArrowLeft, ArrowRight, PlusCircle }  from 'react-feather';
 
 function Schedule() {
@@ -20,7 +20,8 @@ function Schedule() {
   const [selectedDates, setSelectedDates] = useState(getStartingDates());
 
   return (
-    <Box sx={{ margin: 4, backgroundColor: 'muted', pl: 3, pr: 3, borderRadius: 4 }}>
+    <Box sx={{ margin: 4, backgroundColor: 'muted', p: 3, borderRadius: 4, flex: 1 }}>
+      <Heading as='h3'>Task Board</Heading>
       <Box sx={{ pt: 3, display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{display: 'flex'}}>
           <ArrowLeft />
