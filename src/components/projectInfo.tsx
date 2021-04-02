@@ -3,6 +3,7 @@ import { format, subDays, addDays } from 'date-fns';
 import { Box, Text, Button, Heading } from 'theme-ui';
 import { ArrowLeft, ArrowRight, PlusCircle } from 'react-feather';
 import ItemTypes from './itemTypes';
+import AddItem from './addItem';
 
 function ProjectInfo() {
   const getStartingDisplayDates = () => {
@@ -30,9 +31,7 @@ function ProjectInfo() {
           <Heading as='h2'>Project Name</Heading>
         </Box>
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <Button mr={3}>
-            <Text>ADD ITEM</Text>
-          </Button>
+          <AddItem />
           <ItemTypes />
         </Box>
       </Box>

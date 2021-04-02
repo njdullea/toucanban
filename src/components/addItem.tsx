@@ -1,31 +1,31 @@
 import React, {useState} from 'react';
-import { Card, Text, Divider, Box, Button, useColorMode, useThemeUI } from 'theme-ui';
+import { Card, Text, Divider, Box, Button } from 'theme-ui';
 import { Sun, User, Users, Activity } from 'react-feather';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { animated, useSpring } from 'react-spring';
 
-function SettingsModal() {
-  const [colorMode, setColorMode] = useColorMode();
-  const [displaySettingsModal, setDisplaySettingsModal] = useState(false);
-  const animateProps = useSpring({ opacity: displaySettingsModal ? 1 : 0 });
+function AddItem() {
+  const [displayAddItemModal, setDisplayAddItemModal] = useState(false);
+  const animateProps = useSpring({ opacity: displayAddItemModal ? 1 : 0 });
 
   return (
-    <Box>
       <OutsideClickHandler
         onOutsideClick={() => {
-          setDisplaySettingsModal(false);
+          setDisplayAddItemModal(false);
         }}
       >
+        
         <Button
-            onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
-            variant="secondary"
+          mr={3}
+          onClick={() => setDisplayAddItemModal(!displayAddItemModal)}
         >
-          <Text sx={{fontFamily: 'Helvetica Neue', fontSize: 1}}>SETTINGS</Text>
+          <Text sx={{fontFamily: 'Helvetica Neue', fontSize: 1}}>ADD ITEM</Text>
         </Button>
+        <Box sx={{position: 'relative'}}>
         {
-          displaySettingsModal &&
+          displayAddItemModal &&
           <animated.div style={animateProps}>
-            <Box sx={{ position: 'absolute', top: 95, right: 30, zIndex: 1}}>
+            <Box sx={{ position: 'absolute', top: 10, right: 15}}>
               <Card sx={{
                 width: 256,
                 padding: 2,
@@ -34,35 +34,31 @@ function SettingsModal() {
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
                 <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Profile</Text>
+                  <Text>Item Name</Text>
                   <User />
                 </Button>
                 <Divider />
                 <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Organizations</Text>
+                  <Text>Item Type</Text>
                   <Users />
                 </Button>
                 <Divider />
                 <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Projects</Text>
+                  <Text>Start Date Time (auto-start)</Text>
                   <Activity />
                 </Button>
                 <Divider />
-                <Button
-                  bg={'muted'}
-                  sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}
-                  onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}
-                >
-                  <Text>Color Mode</Text>
-                  <Sun />
+                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                  <Text>End Date Time (auto-end)</Text>
+                  <Activity />
                 </Button>
               </Card>
             </Box>
           </animated.div>
         }
+        </Box>
       </OutsideClickHandler>
-    </Box>
   )
 };
 
-export default SettingsModal;
+export default AddItem;
