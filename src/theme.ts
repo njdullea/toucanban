@@ -92,6 +92,18 @@ export default {
         outline: 'none',
       },
     },
+    basic: {
+      bg: 'muted',
+      color: 'text',
+      outline: 'none',
+      textDecoration: 'none',
+      '&:hover': {
+        // borderBottomWidth: 2,
+        // bg: 'primary',
+        // borderBottomColor: 'text',
+        textDecoration: 'underline',
+      },
+    }
   },
   cards: {
     primary: {
@@ -189,6 +201,14 @@ export default {
     },
     img: {
       maxWidth: "100%"
+    },
+    li: {
+      // listStyleType: 'none',
+      listStyle: 'none',
+    },
+    ul: {
+      // listStyleType: 'none',
+      listStyle: 'none',
     }
   }
 } as Theme;

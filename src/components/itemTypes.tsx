@@ -1,16 +1,29 @@
 import React, {useState} from 'react';
-import { Card, Text, Divider, Box, Button, useColorMode, useThemeUI } from 'theme-ui';
-import { Sun, User, Users, Activity } from 'react-feather';
+import { Card, Text, Divider, Box, Button, Grid, Heading, Input } from 'theme-ui';
+import { Sun, User, Users, Activity, X, Plus } from 'react-feather';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { animated, useSpring } from 'react-spring';
-// import { SketchPicker } from 'react-color';
+import { TwitterPicker } from 'react-color';
 
 function ItemTypes() {
-  const [colorMode, setColorMode] = useColorMode();
+  const [itemTypes, setItemTypes] = useState([
+    {
+      id: '1',
+      name: 'Task',
+      color: '#4caf50'
+    },
+    {
+      id: '2',
+      name: 'Fix',
+      color: '#f44336'
+    },
+    {
+      id: '3',
+      name: 'Review',
+      color: '#3f51b5'
+    },
+  ]);
   const [displayItemTypesModal, setDisplayItemTypesModal] = useState(false);
-  const context = useThemeUI();
-  const { theme } = context;
-
   const animateProps = useSpring({ opacity: displayItemTypesModal ? 1 : 0 });
 
   return (
@@ -40,28 +53,33 @@ function ItemTypes() {
                 color: 'black',
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Task</Text>
-                  {/* <User /> */}
-                  <Box bg={'#4caf50'} sx={{width: '24px', height: '24px', borderRadius: '8px'}} />
-                </Button>
-                <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Fix</Text>
-                {/* <Users /> */}
-                  <Box bg={'#f44336'} sx={{width: '24px', height: '24px', borderRadius: '8px'}} />
-                </Button>
-                <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Review</Text>
-                  {/* <Activity /> */}
-                  <Box bg={'#3f51b5'} sx={{width: '24px', height: '24px', borderRadius: '8px'}} />
-                </Button>
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Add Item</Text>
-                  {/* <Activity /> */}
-                  <Box bg={'muted'} sx={{width: '24px', height: '24px', borderRadius: '8px'}} />
-                </Button>
+                <Grid gap={2}>
+                  {itemTypes.map(itemType => {
+                    return (
+                      <Box key={itemType.id} sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                          <Button bg={itemType.color} p={0} m={0} sx={{ height: 24, width: 24 }}/>
+                          <Button variant="basic" p={2} m={0} sx={{alignItems: 'center', display: 'flex'}}>
+                            <Heading as="h4">{itemType.name}</Heading>
+                          </Button>
+                        </Box>
+                        <Button variant="basic" p={0} m={0} sx={{alignItems: 'center', display: 'flex'}}>
+                          <X />
+                        </Button>
+                      </Box>
+                    )
+                  })}
+                  <Divider />
+                  <Box key={'Add Item'} sx={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ alignItems: 'center', display: 'flex' }}>
+                      <Button bg={'background'} p={0} m={0} sx={{ height: 24, width: 24 }}/>
+                    <Input m={2} sx={{color: 'text'}} defaultValue="New Item Type" />
+                    </Box>
+                    <Button variant="basic" p={0} m={0} sx={{alignItems: 'center', display: 'flex'}}>
+                      <Plus />
+                    </Button>
+                  </Box>
+                </Grid>
               </Card>
             </Box>
           </animated.div>
