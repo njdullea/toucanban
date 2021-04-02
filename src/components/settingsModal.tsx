@@ -33,23 +33,24 @@ function SettingsModal() {
                 color: 'black',
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Profile</Text>
                   <User />
                 </Button>
                 <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Organizations</Text>
                   <Users />
                 </Button>
                 <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Projects</Text>
                   <Activity />
                 </Button>
                 <Divider />
                 <Button
                   bg={'muted'}
+                  variant="basic"
                   sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}
                   onClick={() => setColorMode(colorMode === 'default' ? 'dark' : 'default')}
                 >

@@ -13,7 +13,7 @@ function Header() {
         <Box sx={{display: 'flex', alignItems: 'center'}}>
           <ToucanIcon
             background={theme.colors?.muted}
-            stroke={colorMode === 'default' ? 'white' : theme.colors?.muted}
+            stroke={theme.colors?.muted}
             fill={colorMode === 'default' ? 'black' : 'white'}
           />
           <Heading as='h1' pl={3}>Toucanban</Heading>

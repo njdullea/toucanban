@@ -33,22 +33,22 @@ function AddItem() {
                 color: 'black',
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Item Name</Text>
                   <User />
                 </Button>
                 <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Item Type</Text>
                   <Users />
                 </Button>
                 <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Start Date Time (auto-start)</Text>
                   <Activity />
                 </Button>
                 <Divider />
-                <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
+                <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>End Date Time (auto-end)</Text>
                   <Activity />
                 </Button>

@@ -5,24 +5,19 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { animated, useSpring } from 'react-spring';
 import { TwitterPicker } from 'react-color';
 
-function ItemTypes() {
-  const [itemTypes, setItemTypes] = useState([
-    {
-      id: '1',
-      name: 'Task',
-      color: '#4caf50'
-    },
-    {
-      id: '2',
-      name: 'Fix',
-      color: '#f44336'
-    },
-    {
-      id: '3',
-      name: 'Review',
-      color: '#3f51b5'
-    },
-  ]);
+interface itemType {
+  id: string,
+  name: string,
+  color: string
+}
+
+interface itemTypesManagerInput {
+  itemTypes: itemType[],
+  setItemTypes: (newItemTypes: itemType[]) => void,
+}
+
+function ItemTypes(props: itemTypesManagerInput) {
+  const { itemTypes, setItemTypes } = props;
   const [displayItemTypesModal, setDisplayItemTypesModal] = useState(false);
   const animateProps = useSpring({ opacity: displayItemTypesModal ? 1 : 0 });
 
