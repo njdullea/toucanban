@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Card, Text, Divider, Box, Button } from 'theme-ui';
+import { Card, Text, Divider, Box, Button, Input } from 'theme-ui';
 import { Sun, User, Users, Activity } from 'react-feather';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { animated, useSpring } from 'react-spring';
@@ -34,7 +34,7 @@ function AddItem() {
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
                 <Button bg={'muted'} variant="basic" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
-                  <Text>Item Name</Text>
+                  <Text>Item Description</Text>
                   <User />
                 </Button>
                 <Divider />
