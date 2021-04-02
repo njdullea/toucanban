@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { format, subDays, addDays } from 'date-fns';
 import { Box, Text, Button, Heading } from 'theme-ui';
-import { ArrowLeft, ArrowRight, PlusCircle }  from 'react-feather';
+import { ArrowLeft, ArrowRight, PlusCircle } from 'react-feather';
+import ItemTypes from './itemTypes';
 
 function ProjectInfo() {
   const getStartingDisplayDates = () => {
@@ -22,19 +23,17 @@ function ProjectInfo() {
   return (
     <Box pl={4} pr={4} pb={4} sx={{ flex: 1 }}>
       <Box sx={{ pt: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center'}}>
           <Button variant="secondary" mr={3}>
             <Text sx={{fontFamily: 'Helvetica Neue', fontSize: 1}}>EXIT</Text>
           </Button>
           <Heading as='h2'>Project Name</Heading>
         </Box>
         <Box sx={{display: 'flex', alignItems: 'center'}}>
-          <Button variant="secondary">
-            <Text>Add Item</Text>
+          <Button mr={3}>
+            <Text>ADD ITEM</Text>
           </Button>
-          <Button ml={3} variant="secondary">
-            <Text>Item Types</Text>
-          </Button>
+          <ItemTypes />
         </Box>
       </Box>
       {/* <Box sx={{display: 'flex'}}>

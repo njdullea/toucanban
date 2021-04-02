@@ -2,15 +2,11 @@ import React, {useState} from 'react';
 import { Card, Text, Divider, Box, Button, useColorMode, useThemeUI } from 'theme-ui';
 import { Sun, User, Users, Activity } from 'react-feather';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { Settings } from 'react-feather';
 import { animated, useSpring } from 'react-spring';
 
 function SettingsModal() {
   const [colorMode, setColorMode] = useColorMode();
   const [displaySettingsModal, setDisplaySettingsModal] = useState(false);
-  const context = useThemeUI();
-  const { theme } = context;
-
   const animateProps = useSpring({ opacity: displaySettingsModal ? 1 : 0 });
 
   return (
@@ -20,15 +16,16 @@ function SettingsModal() {
           setDisplaySettingsModal(false);
         }}
       >
-      <Button
-          onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
-          variant="secondary"
-      >
-          {/* <Settings /> */}
+        <Button
+            onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
+            variant="secondary"
+        >
           <Text sx={{fontFamily: 'Helvetica Neue', fontSize: 1}}>SETTINGS</Text>
-      </Button>
-        <animated.div style={animateProps}>
-          <Box sx={{position: 'absolute', top: 100, right: 30}}> 
+        </Button>
+        {
+          displaySettingsModal &&
+          <animated.div style={animateProps}>
+            <Box sx={{ position: 'absolute', top: 95, right: 30 }}>
               <Card sx={{
                 width: 256,
                 padding: 2,
@@ -60,9 +57,9 @@ function SettingsModal() {
                   <Sun />
                 </Button>
               </Card>
-            
-          </Box>
-        </animated.div>
+            </Box>
+          </animated.div>
+        }
       </OutsideClickHandler>
     </Box>
   )
