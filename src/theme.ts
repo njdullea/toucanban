@@ -51,9 +51,9 @@ export default {
   colors: {
     text: "#000",
     background: "#fafafa",
-    primary: "#07c",
-    secondary: "#30c",
-    muted: "#c7c7c7",
+    primary: "#008ba3",
+    secondary: "#fb8c00",
+    muted: "#f5f5f5",
     modes: {
       dark: {
         text: "#fff",
@@ -70,6 +70,7 @@ export default {
       // boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)',
       color: 'text',
       outline: 'none',
+      boxShadow: '0 0 8px rgba(0, 0, 0, 0.15)',
       '&:hover': {
         textDecoration: 'underline',
       },
@@ -81,10 +82,11 @@ export default {
       bg: 'muted',
       color: 'text',
       outline: 'none',
+      boxShadow: '0 0 8px rgba(0, 0, 0, 0.15)',
       '&:hover': {
         borderBottomWidth: 2,
         borderBottomColor: 'text',
-        // textDecoration: 'underline',
+        textDecoration: 'underline',
       },
       '&:active': {
         outline: 'none',

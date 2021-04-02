@@ -21,12 +21,11 @@ function SettingsModal() {
         }}
       >
       <Button
-        onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
-        bg={theme.colors?.muted as string}
-        p={0}
-        sx={{ display: 'flex', height: '48px', width: '48px', borderRadius: '8px', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'}}
+          onClick={() => setDisplaySettingsModal(!displaySettingsModal)}
+          variant="secondary"
       >
-        <Settings />
+          {/* <Settings /> */}
+          <Text sx={{fontFamily: 'Helvetica Neue', fontSize: 1}}>SETTINGS</Text>
       </Button>
         <animated.div style={animateProps}>
           <Box sx={{position: 'absolute', top: 100, right: 30}}> 
@@ -35,7 +34,7 @@ function SettingsModal() {
                 padding: 2,
                 backgroundColor: 'muted',
                 color: 'black',
-                boxShadow: '0 0 8px rgba(0, 0, 0, 0.5)'
+                boxShadow: '0 0 8px rgba(0, 0, 0, 0.2)'
               }}>
                 <Button bg={'muted'} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }} p={1}>
                   <Text>Profile</Text>

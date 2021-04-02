@@ -3,7 +3,7 @@ import { ThemeProvider } from 'theme-ui';
 import theme from './theme';
 import { Box } from 'theme-ui';
 import Header from './components/header';
-import Schedule from './components/schedule';
+import ProjectInfo from './components/projectInfo';
 import ProjectSettings from './components/projectSettings';
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box bg='background' sx={{ height: '100vh', display: 'flex', flexDirection: 'column'}}>
         <Header />
-        <ProjectSettings />
-        <Schedule />
+        {/* <ProjectSettings /> */}
+        <ProjectInfo />
       </Box>
     </ThemeProvider>
   );
