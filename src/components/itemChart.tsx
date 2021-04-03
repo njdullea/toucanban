@@ -1,15 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Chart, ChartItem, ChartConfiguration, CategoryScale, LineController, LineElement, PointElement, LinearScale, Title} from 'chart.js';
-
-// const chartConfig: ChartConfiguration = {
-//   type: 'bar',
-//   data: {
-//     // ...
-//   },
-//   options: {
-//     // ...
-//   }
-// };
+import { useState, useEffect, useRef } from 'react';
+import { Chart, ChartItem, CategoryScale, LineController, LineElement, PointElement, LinearScale, Title} from 'chart.js';
+import { Box } from 'theme-ui';
 
 Chart.register(CategoryScale, LineController, LineElement, PointElement, LinearScale, Title);
 // Chart.register(CategoryScale);
@@ -34,10 +25,10 @@ const ItemChart = (props: { items: item[] }) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // const myChartRef = chartRef.current?.getContext('2d') as ChartItem;
-    const ctx = document.getElementById('myChart') as ChartItem;
+    const myChartRef = chartRef.current?.getContext('2d') as ChartItem;
+    // const ctx = document.getElementById('myChart') as ChartItem;
 
-    new Chart(ctx, {
+    new Chart(myChartRef, {
       type: "line",
       data: {
           //Bring in data
@@ -50,40 +41,25 @@ const ItemChart = (props: { items: item[] }) => {
           ]
       },
       options: {
+        responsive: false,
           //Customize chart options
+        events: ['click', 'mousemove'],
+        onClick: (e) => {
+          console.log('On click: ', e);
+          // const canvasPosition = Chart.helpers.getRelativePosition(e, chart);
+
+          // // Substitute the appropriate scale IDs
+          // const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
+          // const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
+          // console.log('Data X: ', dataX, 'and Data Y: ', dataY);
+        }
       }
     });
   });
-
-  // useEffect(() => {
-  //   const ctx = document.getElementById("myChart") as ChartItem;
-  //   new Chart(ctx, {
-  //     type: "pie",
-  //     data: {
-  //       labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  //       datasets: [
-  //         {
-  //           label: "# of Votes",
-  //           data: [12, 19, 3, 5, 2, 3],
-  //           backgroundColor: [
-  //             "Red",
-  //             "Blue",
-  //             "Yellow",
-  //             "Green",
-  //             "Purple",
-  //             "Orange"
-  //           ],
-  //           borderColor: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  //           borderWidth: 1
-  //         }
-  //       ]
-  //     }
-  //   });
-  // });
   return (
-    <div>
+    <Box sx={{display: 'flex', flex: 1, pt: 3, justifyContent: 'center'}}>
       <canvas id="myChart" ref={chartRef} />
-    </div>
+    </Box>
   );
 };
 

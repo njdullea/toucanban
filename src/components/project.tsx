@@ -94,7 +94,7 @@ function ProjectInfo() {
   const [selectedDates, setSelectedDates] = useState(getStartingDisplayDates());
 
   return (
-    <Box pl={4} pr={4} pb={4} sx={{ flex: 1 }}>
+    <Box pl={4} pr={4} pb={4} sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
       <Box sx={{ pt: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box sx={{ display: 'flex', alignItems: 'center'}}>
           <Button variant="secondary" mr={3}>
@@ -113,7 +113,7 @@ function ProjectInfo() {
         <Text sx={{pl: 1, pr: 1}}>Change Date</Text>
         <ArrowRight />
       </Box> */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 3, pb: 3}}>
+      {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 3, pb: 3}}>
         {selectedDates.map(date => {
           return (
             <Text>
@@ -121,7 +121,7 @@ function ProjectInfo() {
             </Text>
           )
         })}
-      </Box>
+      </Box> */}
       <ItemChart items={items}/>
     </Box>
   )
