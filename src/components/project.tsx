@@ -4,6 +4,7 @@ import { Box, Text, Button, Heading } from 'theme-ui';
 import { ArrowLeft, ArrowRight, PlusCircle } from 'react-feather';
 import ItemTypes from './itemTypes';
 import AddItem from './addItem';
+import ItemChart from './itemChart';
 
 // The date and time in: "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" (using date fns). The is the same as the input for parsing a date: https://javascript.info/date#date-parse-from-a-string.
 type dateTime = string;
@@ -21,12 +22,13 @@ interface item {
   continueUntilConfirmed: boolean,
 }
 
-function ProjectInfo() {
-  const [items, setItems] = useState([
+const exampleItems: item[] = [
     {
       id: '1',
       description: 'Setup Project',
       startDateTime: '2021-04-02T09:00:00.000-07:00',
+      endDateTime: undefined,
+      confirmedEndDateTime: undefined,
       continueUntilConfirmed: true,
     },
     {
@@ -34,6 +36,7 @@ function ProjectInfo() {
       description: 'Meet about Project Overview',
       startDateTime: '2021-04-02T13:00:00.000-07:00',
       endDateTime: '2021-04-02T14:00:00.000-07:00',
+      confirmedEndDateTime: undefined,
       continueUntilConfirmed: false,
     },
     {
@@ -41,9 +44,13 @@ function ProjectInfo() {
       description: 'Begin Prototype Implementation',
       startDateTime: '2021-04-02T15:00:00.000-07:00',
       endDateTime: '2021-04-04T09:00:00.000-07:00',
+      confirmedEndDateTime: undefined,
       continueUntilConfirmed: false,
     },
-  ]);
+  ]
+
+function ProjectInfo() {
+  const [items, setItems] = useState(exampleItems);
 
   const [itemTypes, setItemTypes] = useState([
     {
@@ -100,7 +107,8 @@ function ProjectInfo() {
           <ItemTypes itemTypes={itemTypes} setItemTypes={setItemTypes}/>
         </Box>
       </Box>
-      {/* <Box sx={{display: 'flex'}}>
+      {/* TODO: reinclude this
+       <Box sx={{display: 'flex'}}>
         <ArrowLeft />
         <Text sx={{pl: 1, pr: 1}}>Change Date</Text>
         <ArrowRight />
@@ -114,6 +122,7 @@ function ProjectInfo() {
           )
         })}
       </Box>
+      <ItemChart items={items}/>
     </Box>
   )
 };
