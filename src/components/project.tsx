@@ -25,34 +25,34 @@ interface item {
 }
 
 const exampleItems: item[] = [
-    {
-      id: '1',
-      description: 'Setup Project',
-      startDateTime: '2021-04-02T09:00:00.000-07:00',
-      // endDateTime: undefined,
-      duration: undefined,
-      confirmedEndDateTime: undefined,
-      continueUntilConfirmed: true,
-    },
-    {
-      id: '2',
-      description: 'Meet about Project Overview',
-      startDateTime: '2021-04-02T13:00:00.000-07:00',
-      duration: 60,
-      // endDateTime: '2021-04-02T14:00:00.000-07:00',
-      confirmedEndDateTime: undefined,
-      continueUntilConfirmed: false,
-    },
-    {
-      id: '2',
-      description: 'Begin Prototype Implementation',
-      startDateTime: '2021-04-02T15:00:00.000-07:00',
-      // endDateTime: '2021-04-04T09:00:00.000-07:00',
-      duration: 60 * 5,
-      confirmedEndDateTime: undefined,
-      continueUntilConfirmed: false,
-    },
-  ]
+  {
+    id: '1',
+    description: 'Setup Project',
+    startDateTime: '2021-04-02T09:00:00.000-07:00',
+    // endDateTime: undefined,
+    duration: undefined,
+    confirmedEndDateTime: undefined,
+    continueUntilConfirmed: true,
+  },
+  {
+    id: '2',
+    description: 'Meet about Project Overview',
+    startDateTime: '2021-04-02T13:00:00.000-07:00',
+    duration: 60,
+    // endDateTime: '2021-04-02T14:00:00.000-07:00',
+    confirmedEndDateTime: undefined,
+    continueUntilConfirmed: false,
+  },
+  {
+    id: '2',
+    description: 'Begin Prototype Implementation',
+    startDateTime: '2021-04-02T15:00:00.000-07:00',
+    // endDateTime: '2021-04-04T09:00:00.000-07:00',
+    duration: 60 * 5,
+    confirmedEndDateTime: undefined,
+    continueUntilConfirmed: false,
+  },
+]
 
 function ProjectInfo() {
   const [items, setItems] = useState(exampleItems);
@@ -127,7 +127,7 @@ function ProjectInfo() {
           )
         })}
       </Box> */}
-      <ItemChart items={items}/>
+      <ItemChart />
     </Box>
   )
 };
