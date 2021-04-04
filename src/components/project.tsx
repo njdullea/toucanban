@@ -14,8 +14,10 @@ interface item {
   description: string,
   // The time the task starts.
   startDateTime: dateTime,
+  // Time this task will take to complete
+  duration: number | undefined,
   // The time the task should end. 
-  endDateTime: dateTime | undefined,
+  // endDateTime: dateTime | undefined,
   // The time the user marked the task as complete.
   confirmedEndDateTime: dateTime | undefined,
   // If its a meeting, we shouldn't have to confirm complete. If it is a task, we should.
@@ -27,7 +29,8 @@ const exampleItems: item[] = [
       id: '1',
       description: 'Setup Project',
       startDateTime: '2021-04-02T09:00:00.000-07:00',
-      endDateTime: undefined,
+      // endDateTime: undefined,
+      duration: undefined,
       confirmedEndDateTime: undefined,
       continueUntilConfirmed: true,
     },
@@ -35,7 +38,8 @@ const exampleItems: item[] = [
       id: '2',
       description: 'Meet about Project Overview',
       startDateTime: '2021-04-02T13:00:00.000-07:00',
-      endDateTime: '2021-04-02T14:00:00.000-07:00',
+      duration: 60,
+      // endDateTime: '2021-04-02T14:00:00.000-07:00',
       confirmedEndDateTime: undefined,
       continueUntilConfirmed: false,
     },
@@ -43,7 +47,8 @@ const exampleItems: item[] = [
       id: '2',
       description: 'Begin Prototype Implementation',
       startDateTime: '2021-04-02T15:00:00.000-07:00',
-      endDateTime: '2021-04-04T09:00:00.000-07:00',
+      // endDateTime: '2021-04-04T09:00:00.000-07:00',
+      duration: 60 * 5,
       confirmedEndDateTime: undefined,
       continueUntilConfirmed: false,
     },
