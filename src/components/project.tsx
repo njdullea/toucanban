@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, PlusCircle } from 'react-feather';
 import ItemTypes from './itemTypes';
 import AddItem from './addItem';
 import ItemChart from './itemChart';
+import { Dates, Calendar } from '../rschedule';
 
 // The date and time in: "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" (using date fns). The is the same as the input for parsing a date: https://javascript.info/date#date-parse-from-a-string.
 type dateTime = string;
@@ -53,6 +54,27 @@ const exampleItems: item[] = [
     continueUntilConfirmed: false,
   },
 ]
+
+function createCalendarFromItems(items: item[]): Calendar {
+  const rDatesItems: Dates[] = [];
+  for (const item of items) {
+    const dateItem = new Dates({
+      dates: [new Date(item.startDateTime)],
+      duration: item.duration,
+      data: {
+        ...item,
+      }
+    });
+    
+    rDatesItems.push(dateItem);
+  }
+
+  const calendar = new Calendar({
+    schedules: rDatesItems,
+  });
+
+  return calendar;
+}
 
 function ProjectInfo() {
   const [items, setItems] = useState(exampleItems);
