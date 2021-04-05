@@ -123,7 +123,7 @@ const commonProps = {
     margin: { top: 40, right: 100, bottom: 40, left: 100 },
     titleOffsetX: -80,
     // data: generateData(),
-    spacing: 80,
+    spacing: 20,
 }
 
 const ItemChart = () => {
