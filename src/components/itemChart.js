@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Box } from 'theme-ui';
 import { ResponsiveBump } from '@nivo/bump';
-import { getDataPointSliceFromCalendar } from '../chartData';
+import { getData } from '../chartData';
 
 // TODO: monitor this issue and convert to typescript
 // https://github.com/plouc/nivo/issues/1225
@@ -128,12 +128,14 @@ const commonProps = {
 
 const ItemChart = () => {
   // const [inputData] = useState(getDataPointSliceFromCalendar('2021-04-01', '2021-04-05'));
+  const [inputData] = useState(getData('2021-04-01', '2021-04-05'));
+  console.log('Input data: ', inputData);
   return (
     <Box sx={{height: 400}}>
       <ResponsiveBump
         {...commonProps}
         pointComponent={CustomPoint}
-        data={data}
+        data={inputData}
         margin={{ top: 40, right: 100, bottom: 40, left: 60 }}
         colors={{ scheme: 'spectral' }}
         lineWidth={3}

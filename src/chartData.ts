@@ -1,5 +1,6 @@
 import { Dates, Calendar, Schedule } from './rschedule';
 import { parse, format, add } from 'date-fns';
+import { DateTime, Interval, Duration } from 'luxon';
 
 // The date and time in: "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" (using date fns). The is the same as the input for parsing a date: https://javascript.info/date#date-parse-from-a-string.
 // For sorting, would the 'T' cause an issue?
@@ -8,167 +9,191 @@ type dateTime = string;
 // The date and time in: "yyyy-MM-dd" (using date fns). This can be used to automatically parse a date. 
 type date = string;
 
-interface item {
+interface task {
   id: string,
   description: string,
   // The time the task starts.
   startDateTime: dateTime,
-  // Time this task will take to complete
-  duration: number | undefined,
-  // The time the task should end. 
-  // endDateTime: dateTime | undefined,
-  // The time the user marked the task as complete.
-  confirmedEndDateTime: dateTime | undefined,
-  // If its a meeting, we shouldn't have to confirm complete. If it is a task, we should.
-  continueUntilConfirmed: boolean,
+  // The time the task ends. 
+  endDateTime: dateTime | undefined,
 }
 
-const items: item[] = [
-  {
-    id: '1',
+type tasks = task[];
+
+interface tasksObject {
+  [key: string]: task
+}
+
+const tasksObject: tasksObject = {
+  'Setup Project': {
+    id: 'Setup Project',
     description: 'Setup Project',
-    startDateTime: '2021-04-01T09:00:00.000-07:00',
-    // endDateTime: undefined,
-    duration: 3440,
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: true,
+    startDateTime: '2021-03-31T09:00:00.000-07:00',
+    endDateTime: '2021-04-03T09:00:00.000-07:00',
   },
-  {
-    id: '2',
+  'Distribute Project Materials': {
+    id: 'Distribute Project Materials',
     description: 'Meet about Project Overview',
-    startDateTime: '2021-04-02T13:00:00.000-07:00',
-    duration: 1440,
-    // endDateTime: '2021-04-02T14:00:00.000-07:00',
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: false,
+    startDateTime: '2021-04-01T13:00:00.000-07:00',
+    endDateTime: '2021-04-04T14:00:00.000-07:00',
   },
-  {
-    id: '3',
+  'Begin Prototype Implementation': {
+    id: 'Begin Prototype Implementation',
     description: 'Begin Prototype Implementation',
     startDateTime: '2021-04-03T15:00:00.000-07:00',
-    // endDateTime: '2021-04-04T09:00:00.000-07:00',
-    duration: 60 * 5,
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: false,
-  },
-]
-
-function createCalendarFromItems(items: item[]): Calendar {
-  const rDatesItems: Dates[] = [];
-  for (const item of items) {
-    const dateItem = new Dates({
-      dates: [new Date(item.startDateTime)],
-      duration: item.duration,
-      data: {
-        ...item,
-      }
-    });
-    
-    rDatesItems.push(dateItem);
+    endDateTime: '2021-07-02T14:00:00.000-07:00',
   }
-
-  const calendar = new Calendar({
-    schedules: rDatesItems,
-  });
-
-  return calendar;
 }
 
-// IDEA: add granularity so we can zoom in/out?
-export function getDataPointSliceFromCalendar(startingDate: date, endingDate: date): NivoBumpChartData[] {
-  // we will need to filter items with ending date before starting date manually
-  const chartData: ChartDataObject = {};
-
-  const calendar = createCalendarFromItems(items);
-
-  // const occurenceIterator = calendar.occurrences({ start: new Date(startingDate), end: new Date(endingDate) });
-  const occurenceIterator = calendar.occurrences({ end: new Date(endingDate) });
-
-  for (const occurence of occurenceIterator) {
-    const date = format(occurence.date as Date, 'yyyy-MM-dd');
-    if (!chartData[date]) {
-      // chartData[date] = {};
-    }
-    // console.log('Date time: ', date);
-    const itemStart = occurence.date as Date;
-    const startDate = format(itemStart, 'yyyy-MM-dd');
-    const itemEnd = add(itemStart, {
-      minutes: occurence.generators[1].maxDuration
-    });
-    const endDate = format(itemEnd, 'yyyy-MM-dd');
-    // for (le)
-    // GO FROM START TO END DATE AND ADD DATE POINTS TO CHART DATA OBJECT
-    
-    // console.log('Formatted date: ', format(parse(occurence.date, '', new Date()), 'yyyy-MM-dd'))
-    // console.log('Generators: ', occurence.generators);
-    console.log('Dates: ', occurence.generators[1]);
-
-
-
-    // console.log('L', occurence.generators[0];
-    // const ruleScheduleSomething = occurence.generators[1];
-    // console.log('rss: ', ruleScheduleSomething.data);
-    // const date = format(new Date(occurenceDate), 'yyyy-MM-dd');
-  }
-
-  // TODO: make object where keys are dates and values are array of items occuring on that date
-  
-  // TODO: go through each key, and assign each 'y' value a rank from oldest to newest, and a null point on each end to indicate line is not infinite
-
-  // TODO: make a new object, where each key is an id, and value is array array of x: date, y: rank | null
-
-  
-
-  // let index = 0;
-  // for (const dateOcc of occurences.toArray()) {
-  //   // console.log('Date occ: ', dateOcc);
-  //   const dateTime = dateOcc.toDateTime();
-  //   // console.log('Date Time: ', dateTime);
-  //   const date = format(dateTime.date, 'yyyy-MM-dd');
-  //   // console.log('Check out the date: ', date);
-
-  //   const dates = dateTime.generators[1] as Dates;
-  //   console.log('Dates: ', dates.data);
-
-  //   const startDateTime = dates.data.startDateTime;
-  //   const endDateTime = dates.data.confirmedEndDateTime || format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
-  //   const description = dates.data.description;
-  //   const id = dates.data.id;
-
-  //   chartData[id] = {
-  //     id,
-  //     data: [
-  //       {
-  //         x: startDateTime,
-  //         y: 0,
-  //         id,
-  //         description,
-  //       }
-  //     ]
-  //   }
-  // }
-
-  return Object.values(chartData);
-}
-
-function getItemDates(): date[] {
-  
-  return [];
-};
-
+/**
+ * x is the dateTime of the data.
+ * 
+ * y is the ranking in the chart. On each end of the task will be a null point to indicate it does not go forever on chart.
+ * 
+ * id is the id of the task it is associated too. We keep track of this while in the data container to sort out to arrays separated by task after.
+ */
 interface xyPoint {
-  x: number,
-  y: number,
+  x: string,
+  y: number | null,
   id: string,
-  description: string,
 }
 
-interface NivoBumpChartData {
+/**
+ * id is the id of the task.
+ * 
+ * data contains item ranking sorted by date.
+ */
+interface TaskDataPoints {
   id: string,
   data: xyPoint[]
 }
 
-interface ChartDataObject {
-  [key: string]: NivoBumpChartData,
+/**
+ * Key is task id, value is object with id and data points for all the dates in the time range.
+ */
+interface TaskDataContainer {
+  [key: string]: TaskDataPoints
 }
 
+/**
+ * List of Object representing each task and their rankings over a split interval of time.
+ */
+type ChartData = TaskDataPoints[];
+
+/**
+ * Keys are date times, with an array of xyPoint from each task. 
+ * 
+ * Essentially this is a matrix where each column is the next date, and a list of items for each task where the x is the date, and y 0 or null depending on if it occurs on that date.
+ */
+interface DataContainer {
+  [key: string]: xyPoint[]
+}
+
+function getTaskInterval(task: task): Interval {
+  const start = DateTime.fromISO(task.startDateTime);
+  const end = task.endDateTime ? DateTime.fromISO(task.endDateTime) : DateTime.fromJSDate(new Date());
+  const interval = Interval.fromDateTimes(start, end);
+  return interval;
+}
+
+export function getData(start: date, end: date): ChartData {
+  // we can make an interval out of this, generate the splits, make an interval on each of the items, check overlay and return all the x points. then, we can make y points by ordering on the oldest start date time.
+  const startDate = DateTime.fromFormat(start, 'yyyy-MM-dd');
+  const endDate = DateTime.fromFormat(end, 'yyyy-MM-dd');
+  const dataView: Interval = Interval.fromDateTimes(startDate, endDate);
+  const frequency: Duration = Duration.fromISOTime('24:00');
+  // TODO: we should just make go through all the tasks and check on these intervals instead of turning the columns into dateTimes and checking if task contains that datetime.
+  const dataIntervals = dataView.splitBy(frequency);
+  const dataColumns: string[] = dataIntervals.map(intrvl => intrvl.end.toFormat('yyyy-MM-dd'));
+  dataColumns.unshift(dataIntervals[0].start.toFormat('yyyy-MM-dd'));
+  // console.log('Data columns: ', dataColumns);
+
+  // DATA CONTAINER SORTED BY DATETIME COLUMNS
+  const dataContainer: DataContainer = {};
+  dataColumns.map(column => {
+    dataContainer[column] = [];
+  });
+
+  // APPEND XY POINT FOR EACH TASK TO EACH COLUMN CREATING A MATRIX. 0 IF TASK OCCURED ON DATE, NULL IF NOT.
+  for (const task of Object.values(tasksObject)) {
+    const interval = getTaskInterval(task);
+    // console.log('Task interval: ', interval.toString());
+    for (const column of Object.keys(dataContainer)) {
+      // console.log('DateTime Column: ', column);
+      const dateTime = DateTime.fromFormat(column, 'yyyy-MM-dd');
+      const contained = interval.contains(dateTime);
+      // For now we will sort the data points which 'y' is not null after we are done.
+      // Once we take a look into how we want to filter out data more, there is probably a smarter way to do this.
+      // Remember, we need to have a null point at the beginning and end of each task though.
+      const yPoint = contained ? 0 : null;
+      dataContainer[column].push({
+        x: column,
+        y: yPoint,
+        id: task.id,
+      });
+    }
+  }
+  
+  // GO THROUGH DATETIME DATA CONTAINER, SORT ITEMS IN EACH COLUMN SO TOP IS OLDEST, AND BOTTOM IS NEWEST
+  // AFTER SORTING, ASSIGN RANK TO Y BASED ON INDEX IN COLUMN (NULL ITEMS ARE NOT RANKED)
+  for (const column of Object.keys(dataContainer)) {
+    const columnData = dataContainer[column];
+    console.log('Column data before sort: ', column, columnData);
+    columnData.sort(rankTasks);
+    console.log('Column data after sort: ', columnData);
+    for (const [index, point] of columnData.entries()) {
+      if (point.y !== null) {
+        point.y = index + 1;
+      }
+    }
+  }
+
+  const dataContainerSortedByTaskId: TaskDataContainer = {};
+  for (const dateTimeColumn of Object.keys(dataContainer)) {
+    const data = dataContainer[dateTimeColumn];
+    for (const item of data) {
+      if (!dataContainerSortedByTaskId[item.id]) {
+        dataContainerSortedByTaskId[item.id] = {
+          id: item.id,
+          data: [],
+        };
+      }
+
+      dataContainerSortedByTaskId[item.id].data.push(item);
+    }
+  }
+
+  // const data: ChartData = [];
+  const chartData = Object.values(dataContainerSortedByTaskId);
+  console.log('Chart Data: ', JSON.stringify(chartData));
+  return chartData;
+}
+
+/**
+ * 
+ * @param xy1 
+ * @param xy2 
+ * @returns 0 if equal rank, 1 if both exist and xy2 is older, -1 is xy1 is older. Numbers seem revers because we want reverse order.
+ */
+function rankTasks(xy1: xyPoint, xy2: xyPoint): number {
+  if (xy1.y === null && xy2.y === null) {
+    return 0;
+  } else if (xy1.y === null) {
+    return 1;
+  } else if (xy2.y === null) {
+    return -1;
+  }
+
+  const task1 = tasksObject[xy1.id];
+  const task2 = tasksObject[xy2.id];
+  const task1Start = DateTime.fromFormat(task1.startDateTime, 'yyyy-MM-dd');
+  const task2Start = DateTime.fromFormat(task2.startDateTime, 'yyyy-MM-dd');
+  const diff = task2Start.toMillis() - task1Start.toMillis();
+  if (diff === 0) {
+    return 0;
+  } else if (diff > 0) {
+    return -1;
+  } else {
+    return 1;
+  }
+}
