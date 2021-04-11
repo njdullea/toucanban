@@ -1,88 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Box } from 'theme-ui';
 import { ResponsiveBump } from '@nivo/bump';
 import { getData } from '../chartData';
 
 // TODO: monitor this issue and convert to typescript
 // https://github.com/plouc/nivo/issues/1225
-
-const data = [
-  {
-    "id": "Setup Project Board",
-    "data": [
-      {
-        "x": '2021-04-01',
-        "y": 1
-      },
-      {
-        "x": '2021-04-02',
-        "y": 1
-      },
-      {
-        "x": '2021-04-03',
-        "y": null
-      },
-      {
-        "x": '2021-04-04',
-        "y": null
-      },
-      {
-        "x": '2021-04-05',
-        "y": null
-      }
-    ]
-  },
-  {
-    "id": "Review Project Materials",
-    "data": [
-      {
-        "x": '2021-04-01',
-        "y": 2
-      },
-      {
-        "x": '2021-04-02',
-        "y": 2
-      },
-      {
-        "x": '2021-04-03',
-        "y": 1
-      },
-      {
-        "x": '2021-04-04',
-        "y": 1
-      },
-      {
-        "x": '2021-04-05',
-        "y": null
-      }
-    ]
-  },
-  {
-    "id": "Conduct Project Meeting",
-    "data": [
-      // {
-      //   "x": '2021-04-01',
-      //   "y": null
-      // },
-      {
-        "x": '2021-04-02',
-        "y": null
-      },
-      {
-        "x": '2021-04-03',
-        "y": 2
-      },
-      {
-        "x": '2021-04-04',
-        "y": 2
-      },
-      {
-        "x": '2021-04-05',
-        "y": 1
-      }
-    ]
-  }
-]
 
 const CustomPoint = ({ x, y, isActive, isInactive, size, color, borderColor, borderWidth }) => {
     return (
@@ -118,18 +40,16 @@ const CustomPoint = ({ x, y, isActive, isInactive, size, color, borderColor, bor
 }
 
 const commonProps = {
-    width: 900,
-    height: 360,
-    margin: { top: 40, right: 100, bottom: 40, left: 100 },
-    titleOffsetX: -80,
-    // data: generateData(),
-    spacing: 20,
+  width: 900,
+  height: 360,
+  margin: { top: 40, right: 100, bottom: 40, left: 100 },
+  titleOffsetX: -80,
+  spacing: 20,
 }
 
 const ItemChart = () => {
-  // const [inputData] = useState(getDataPointSliceFromCalendar('2021-04-01', '2021-04-05'));
   const [inputData] = useState(getData('2021-04-01', '2021-04-05'));
-  console.log('Input data: ', inputData);
+
   return (
     <Box sx={{height: 400}}>
       <ResponsiveBump
@@ -160,23 +80,7 @@ const ItemChart = () => {
         }}
         axisRight={null}
         axisBottom={null}
-        // axisBottom={{
-        //     tickSize: 5,
-        //     tickPadding: 5,
-        //     tickRotation: 0,
-        //     legend: '',
-        //     legendPosition: 'middle',
-        //     legendOffset: 32
-        // }}
         axisLeft={null}
-        // axisLeft={{
-        //     tickSize: 5,
-        //     tickPadding: 5,
-        //     tickRotation: 0,
-        //     legend: 'ranking',
-        //     legendPosition: 'middle',
-        //     legendOffset: -40
-        // }}
       />
     </Box>
   );

@@ -1,84 +1,10 @@
 import { useState } from 'react';
-import { format, subDays, addDays } from 'date-fns';
 import { Box, Text, Button, Heading } from 'theme-ui';
-import { ArrowLeft, ArrowRight, PlusCircle } from 'react-feather';
 import ItemTypes from './itemTypes';
 import AddItem from './addItem';
 import ItemChart from './itemChart';
-import { Dates, Calendar } from '../rschedule';
-
-// The date and time in: "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" (using date fns). The is the same as the input for parsing a date: https://javascript.info/date#date-parse-from-a-string.
-type dateTime = string;
-
-interface item {
-  id: string,
-  description: string,
-  // The time the task starts.
-  startDateTime: dateTime,
-  // Time this task will take to complete
-  duration: number | undefined,
-  // The time the task should end. 
-  // endDateTime: dateTime | undefined,
-  // The time the user marked the task as complete.
-  confirmedEndDateTime: dateTime | undefined,
-  // If its a meeting, we shouldn't have to confirm complete. If it is a task, we should.
-  continueUntilConfirmed: boolean,
-}
-
-const exampleItems: item[] = [
-  {
-    id: '1',
-    description: 'Setup Project',
-    startDateTime: '2021-04-02T09:00:00.000-07:00',
-    // endDateTime: undefined,
-    duration: undefined,
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: true,
-  },
-  {
-    id: '2',
-    description: 'Meet about Project Overview',
-    startDateTime: '2021-04-02T13:00:00.000-07:00',
-    duration: 60,
-    // endDateTime: '2021-04-02T14:00:00.000-07:00',
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: false,
-  },
-  {
-    id: '2',
-    description: 'Begin Prototype Implementation',
-    startDateTime: '2021-04-02T15:00:00.000-07:00',
-    // endDateTime: '2021-04-04T09:00:00.000-07:00',
-    duration: 60 * 5,
-    confirmedEndDateTime: undefined,
-    continueUntilConfirmed: false,
-  },
-]
-
-function createCalendarFromItems(items: item[]): Calendar {
-  const rDatesItems: Dates[] = [];
-  for (const item of items) {
-    const dateItem = new Dates({
-      dates: [new Date(item.startDateTime)],
-      duration: item.duration,
-      data: {
-        ...item,
-      }
-    });
-    
-    rDatesItems.push(dateItem);
-  }
-
-  const calendar = new Calendar({
-    schedules: rDatesItems,
-  });
-
-  return calendar;
-}
 
 function ProjectInfo() {
-  const [items, setItems] = useState(exampleItems);
-
   const [itemTypes, setItemTypes] = useState([
     {
       id: '1',
@@ -95,30 +21,7 @@ function ProjectInfo() {
       name: 'Review',
       color: '#3f51b5'
     },
-    // {
-    //   id: '4',
-    //   name: 'Meeting',
-    //   color: '#42c5f5',
-    // For things like meetings they have a set start and date time, and we don't want to both users with clocking them.
-    // For other tasks we need them to track it, or we can just have estimated end or actual end?
-    //   fixedTiming: false
-    // }
   ]);
-
-  const getStartingDisplayDates = () => {
-    const dates = [];
-    const date = new Date();
-    dates.push(format(subDays(date, 2), 'MM-dd'));
-    dates.push(format(subDays(date, 1), 'MM-dd'));
-    dates.push(format(date, 'MM-dd'));
-    dates.push(format(addDays(date, 1), 'MM-dd'));
-    dates.push(format(addDays(date, 2), 'MM-dd'));
-    dates.push(format(addDays(date, 3), 'MM-dd'));
-    dates.push(format(addDays(date, 4), 'MM-dd'));
-    return dates;
-  };
-
-  const [selectedDates, setSelectedDates] = useState(getStartingDisplayDates());
 
   return (
     <Box pl={4} pr={4} pb={4} sx={{display: 'flex', flexDirection: 'column', flex: 1}}>
@@ -134,21 +37,6 @@ function ProjectInfo() {
           <ItemTypes itemTypes={itemTypes} setItemTypes={setItemTypes}/>
         </Box>
       </Box>
-      {/* TODO: reinclude this
-       <Box sx={{display: 'flex'}}>
-        <ArrowLeft />
-        <Text sx={{pl: 1, pr: 1}}>Change Date</Text>
-        <ArrowRight />
-      </Box> */}
-      {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 3, pb: 3}}>
-        {selectedDates.map(date => {
-          return (
-            <Text>
-              {date}
-            </Text>
-          )
-        })}
-      </Box> */}
       <ItemChart />
     </Box>
   )

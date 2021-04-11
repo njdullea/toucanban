@@ -1,5 +1,3 @@
-import { Dates, Calendar, Schedule } from './rschedule';
-import { parse, format, add } from 'date-fns';
 import { DateTime, Interval, Duration } from 'luxon';
 
 // The date and time in: "yyyy-MM-dd'T'HH:mm:ss.SSSxxx" (using date fns). The is the same as the input for parsing a date: https://javascript.info/date#date-parse-from-a-string.
@@ -117,9 +115,7 @@ export function getData(start: date, end: date): ChartData {
   // APPEND XY POINT FOR EACH TASK TO EACH COLUMN CREATING A MATRIX. 0 IF TASK OCCURED ON DATE, NULL IF NOT.
   for (const task of Object.values(tasksObject)) {
     const interval = getTaskInterval(task);
-    // console.log('Task interval: ', interval.toString());
     for (const column of Object.keys(dataContainer)) {
-      // console.log('DateTime Column: ', column);
       const dateTime = DateTime.fromFormat(column, 'yyyy-MM-dd');
       const contained = interval.contains(dateTime);
       // For now we will sort the data points which 'y' is not null after we are done.
@@ -138,9 +134,7 @@ export function getData(start: date, end: date): ChartData {
   // AFTER SORTING, ASSIGN RANK TO Y BASED ON INDEX IN COLUMN (NULL ITEMS ARE NOT RANKED)
   for (const column of Object.keys(dataContainer)) {
     const columnData = dataContainer[column];
-    console.log('Column data before sort: ', column, columnData);
     columnData.sort(rankTasks);
-    console.log('Column data after sort: ', columnData);
     for (const [index, point] of columnData.entries()) {
       if (point.y !== null) {
         point.y = index + 1;
@@ -148,6 +142,7 @@ export function getData(start: date, end: date): ChartData {
     }
   }
 
+  // Go through all the datetime columns and sort items by task id
   const dataContainerSortedByTaskId: TaskDataContainer = {};
   for (const dateTimeColumn of Object.keys(dataContainer)) {
     const data = dataContainer[dateTimeColumn];
@@ -197,3 +192,87 @@ function rankTasks(xy1: xyPoint, xy2: xyPoint): number {
     return 1;
   }
 }
+
+/*
+
+HERE IS AN EXAMPLE OF CHART DATA:
+
+const data = [
+  {
+    "id": "Setup Project Board",
+    "data": [
+      {
+        "x": '2021-04-01',
+        "y": 1
+      },
+      {
+        "x": '2021-04-02',
+        "y": 1
+      },
+      {
+        "x": '2021-04-03',
+        "y": null
+      },
+      {
+        "x": '2021-04-04',
+        "y": null
+      },
+      {
+        "x": '2021-04-05',
+        "y": null
+      }
+    ]
+  },
+  {
+    "id": "Review Project Materials",
+    "data": [
+      {
+        "x": '2021-04-01',
+        "y": 2
+      },
+      {
+        "x": '2021-04-02',
+        "y": 2
+      },
+      {
+        "x": '2021-04-03',
+        "y": 1
+      },
+      {
+        "x": '2021-04-04',
+        "y": 1
+      },
+      {
+        "x": '2021-04-05',
+        "y": null
+      }
+    ]
+  },
+  {
+    "id": "Conduct Project Meeting",
+    "data": [
+      // {
+      //   "x": '2021-04-01',
+      //   "y": null
+      // },
+      {
+        "x": '2021-04-02',
+        "y": null
+      },
+      {
+        "x": '2021-04-03',
+        "y": 2
+      },
+      {
+        "x": '2021-04-04',
+        "y": 2
+      },
+      {
+        "x": '2021-04-05',
+        "y": 1
+      }
+    ]
+  }
+]
+
+*/
